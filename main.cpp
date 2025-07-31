@@ -8,35 +8,32 @@
 const int screenWidth = 1600;
 const int screenHeight = 900;
 
+// Function Prototypes
 void draw_center_lines();
+void draw_cursor_lines();
 
 int main() {
 
-
-    std::cout << "hello world" << std::endl;
-    
     InitWindow(screenWidth, screenHeight, "Flappy Bird");
 
     Player flappy;
-    flappy.set_player_position(200, screenHeight/2);
+    flappy.set_init_player_position(200, screenHeight/2);
 
-    std::cout << flappy.get_player_position().x << std::endl;
-    std::cout << flappy.get_player_position().y << std::endl;
+    SetTargetFPS(144);
 
-    
-
-    // main game loop
+    // Main Game Loop
     while(!WindowShouldClose()) {
         BeginDrawing();
 
+        ClearBackground(BLACK);
 
-        // DrawCircle(screenWidth/2, screenHeight/2, 100.0f, WHITE);
-        draw_center_lines();
+            draw_center_lines();
+            flappy.draw_player();
+            flappy.apply_gravity();
 
-        flappy.draw_player();
 
-        
-        
+            draw_cursor_lines();
+
 
         EndDrawing();
     }
@@ -46,6 +43,11 @@ int main() {
     return 0;
 }
 
+
+
+
+
+// Function Definitions
 void draw_center_lines() {
     DrawLine(
         0, // x start pos
@@ -62,4 +64,9 @@ void draw_center_lines() {
         screenHeight, // y end pos
         WHITE
     );
+}
+
+void draw_cursor_lines() {
+    DrawLineEx({0, static_cast<float>(GetMouseY())}, {screenWidth, static_cast<float>(GetMouseY())}, 2.0f, WHITE);
+    DrawLineEx({static_cast<float>(GetMouseX()), 0}, {static_cast<float>(GetMouseX()), screenHeight}, 2.0f, WHITE);
 }
