@@ -6,7 +6,7 @@ CXXFLAGS = -I. -Iinclude
 LDFLAGS = -Llib -lraylib -lopengl32 -lgdi32 -lwinmm
 
 # Auto-detect all .cpp files
-SRC = $(wildcard *.cpp) $(wildcard */*.cpp)
+SRC = $(wildcard *.cpp) $(wildcard classes/**/*.cpp)
 OBJ = $(SRC:.cpp=.o)
 
 # Output binary name
