@@ -1,6 +1,7 @@
 #include <iostream>
 #include <raylib.h>
 #include "classes/Player/Player.h"
+#include "classes/Pipe/Pipe.h"
 
 
 
@@ -20,8 +21,12 @@ int main() {
     flappy.set_init_player_position(200, screenHeight/2);
 
 
+    Pipe pipe;
 
-    SetTargetFPS(60);
+
+
+
+    SetTargetFPS(144);
 
     // Main Game Loop
     while(!WindowShouldClose()) {
@@ -30,11 +35,11 @@ int main() {
         ClearBackground(BLACK);
 
             draw_center_lines();
-            flappy.draw_player();
-            flappy.apply_gravity();
-            flappy.controls();
 
-            // std::cout << "real: " << flappy.get_player_position().x << std::endl;
+            flappy.spawn_player();
+            pipe.draw_pipe();
+
+
             
 
 

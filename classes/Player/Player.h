@@ -22,9 +22,7 @@ class Player {
         };
 
         float player_jump_force { 700.0f };
-        
         float player_gravity { 1800.0f };
-
         float player_max_velocity { 1800.0f };
 
     public:
@@ -35,6 +33,7 @@ class Player {
         // void apply_gravity_no_velocity();
 
         void controls();
+        void spawn_player();
 };
 
 

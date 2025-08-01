@@ -38,3 +38,9 @@ void Player::controls() {
 // void Player::apply_gravity_no_velocity() {
 //     player_sprite.y += player_gravity * GetFrameTime();
 // }
+
+void Player::spawn_player() {
+    Player::draw_player();
+    Player::apply_gravity();
+    Player::controls();
+}
