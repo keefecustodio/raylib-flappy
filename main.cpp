@@ -19,7 +19,9 @@ int main() {
     Player flappy;
     flappy.set_init_player_position(200, screenHeight/2);
 
-    SetTargetFPS(144);
+
+
+    SetTargetFPS(60);
 
     // Main Game Loop
     while(!WindowShouldClose()) {
@@ -30,13 +32,16 @@ int main() {
             draw_center_lines();
             flappy.draw_player();
             flappy.apply_gravity();
+            flappy.controls();
 
-
-            draw_cursor_lines();
+            // std::cout << "real: " << flappy.get_player_position().x << std::endl;
+            
 
 
         EndDrawing();
     }
+
+
 
     CloseWindow();
 
@@ -67,6 +72,6 @@ void draw_center_lines() {
 }
 
 void draw_cursor_lines() {
-    DrawLineEx({0, static_cast<float>(GetMouseY())}, {screenWidth, static_cast<float>(GetMouseY())}, 2.0f, WHITE);
-    DrawLineEx({static_cast<float>(GetMouseX()), 0}, {static_cast<float>(GetMouseX()), screenHeight}, 2.0f, WHITE);
+    DrawLineEx({0, static_cast<float>(GetMouseY())}, {screenWidth, static_cast<float>(GetMouseY())}, 1.0f, WHITE);
+    DrawLineEx({static_cast<float>(GetMouseX()), 0}, {static_cast<float>(GetMouseX()), screenHeight}, 1.0f, WHITE);
 }
