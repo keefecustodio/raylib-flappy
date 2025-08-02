@@ -25,7 +25,7 @@ void Player::apply_gravity() {
     player_velocity.y += player_gravity * GetFrameTime();
     player_sprite.y += player_velocity.y * GetFrameTime();
 
-    std::cout << player_velocity.y << std::endl;
+    // std::cout << player_velocity.y << std::endl;
 }
 
 void Player::controls() {

@@ -4,15 +4,27 @@
 
 class Pipe {
     private:
-        Rectangle pipe_sprite {
-            200.0f, // x position of top left corner
-            900.0f / 2.0f, // y position of top left corner
-            50.0f, // width
-            50.0f, // height
+        float pipe_gap {90.0f};
+        float pipe_gap_position {150.0f}; // min/max should be -/+ 300.0f
+        float pipe_speed {300.0f};
+
+        Rectangle top_pipe_sprite {
+            GetScreenWidth() + 75.0f, // x position of top left corner
+            0.0f, // y position of top left corner
+            75.0f, // width
+            (static_cast<float>(GetScreenHeight()) / 2.0f) - pipe_gap + pipe_gap_position // height
+        };
+
+        Rectangle bottom_pipe_sprite {
+            GetScreenWidth() + 75.0f, // x position of top left corner
+            (static_cast<float>(GetScreenHeight()) / 2.0f) + pipe_gap + pipe_gap_position, // y position of top left corner
+            75.0f, // width
+            (static_cast<float>(GetScreenHeight()) / 2.0f) - pipe_gap - pipe_gap_position, // height
         };
 
     public:
         void draw_pipe();
+        void move_pipe();
 };
 
 
