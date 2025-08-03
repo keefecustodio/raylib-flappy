@@ -21,5 +21,9 @@ void Pipe::move_pipe() {
     top_pipe_sprite.x -= pipe_speed * GetFrameTime();
     bottom_pipe_sprite.x -= pipe_speed * GetFrameTime();
 
-    std::cout << top_pipe_sprite.x << std::endl;
+    // std::cout << top_pipe_sprite.x << std::endl;
+}
+
+float Pipe::get_pipe_position() {
+    return top_pipe_sprite.x;
 }

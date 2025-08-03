@@ -6,13 +6,12 @@
 #include <ctime>
 #include <thread>
 #include <string>
-
-
 #include <functional>
 #include <chrono>
 #include <future>
 #include <cstdio>
-
+#include <memory>
+#include <random>
 
 
 
@@ -22,37 +21,30 @@ const int screenHeight = 900;
 // Function Prototypes
 void draw_center_lines();
 void draw_cursor_lines();
-void periodicTask(std::vector<Pipe> &pipes);
+void periodicTask(std::vector<std::unique_ptr<Pipe>> &pipes);
 void repeatingTimer(std::function<void()> task, std::chrono::milliseconds interval);
 
 
+
 int main() {
+
+    
+
     InitWindow(screenWidth, screenHeight, "Flappy Bird");
 
-    std::vector<Pipe> pipes;
+    std::vector<std::unique_ptr<Pipe>> pipes;
 
     Player flappy;
     flappy.set_init_player_position(200, screenHeight/2);
 
-
-    // Pipe pipe;
-
-    // pipes.push_back(pipe);
-
-
     auto startTime = std::chrono::steady_clock::now();
     bool timerRunning = true;
-
-
 
     SetTargetFPS(144);
 
     std::chrono::milliseconds interval(1000);
     std::thread timerThread(repeatingTimer, std::bind(periodicTask, std::ref(pipes)), interval);
     timerThread.detach();
-
-    // std::this_thread::sleep_for(std::chrono::seconds(10)); 
-
 
     // Main Game Loop
     while(!WindowShouldClose()) {
@@ -63,24 +55,19 @@ int main() {
             draw_center_lines();
 
             flappy.spawn_player();
-            // pipe.draw_pipe();
-            // pipe.move_pipe();
 
-            // std::cout << pipes.size() << std::endl;
-
-            for(auto& single_pipe: pipes) { // this isn't even drawing anything..?
-                single_pipe.draw_pipe();
-                single_pipe.move_pipe();
+            for(auto& single_pipe: pipes) {
+                single_pipe->draw_pipe();
+                single_pipe->move_pipe();
                 std::cout << pipes.size() << std::endl;
             }
 
+            // despawn pipe when out of frame
+            if(!pipes.empty() && pipes.front()->get_pipe_position() < -100.0f) {
+                pipes.erase(pipes.begin());
+            }
 
-            // bool CheckCollisionRecs();
-            
-
-
-            
-
+            // pipes.erase(pipes.begin)
 
         EndDrawing();
     }
@@ -94,12 +81,12 @@ int main() {
 
 
 
+// Function Definitions
+
 // Function to be executed by the timer
-void periodicTask(std::vector<Pipe> &pipes) {
-    Pipe temp;
-    pipes.push_back(temp);
+void periodicTask(std::vector<std::unique_ptr<Pipe>> &pipes) {
+    pipes.push_back(std::make_unique<Pipe>());
     std::cout << "Periodic task executed!" << std::endl;
-    std::cout << pipes.size() << std::endl;
 }
 
 // Function to run in a separate thread for the timer
@@ -110,10 +97,7 @@ void repeatingTimer(std::function<void()> task, std::chrono::milliseconds interv
     }
 }
 
-
-
-
-// Function Definitions
+// to help with positioning / centering of objects
 void draw_center_lines() {
     DrawLine(
         0, // x start pos
@@ -132,6 +116,8 @@ void draw_center_lines() {
     );
 }
 
+
+// for fun
 void draw_cursor_lines() {
     DrawLineEx({0, static_cast<float>(GetMouseY())}, {screenWidth, static_cast<float>(GetMouseY())}, 1.0f, WHITE);
     DrawLineEx({static_cast<float>(GetMouseX()), 0}, {static_cast<float>(GetMouseX()), screenHeight}, 1.0f, WHITE);

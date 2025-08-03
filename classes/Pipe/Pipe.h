@@ -4,7 +4,7 @@
 
 class Pipe {
     private:
-        float pipe_gap {90.0f};
+        float pipe_gap {100.0f};
         float pipe_gap_position {150.0f}; // min/max should be -/+ 300.0f
         float pipe_speed {300.0f};
 
@@ -25,6 +25,7 @@ class Pipe {
     public:
         void draw_pipe();
         void move_pipe();
+        float get_pipe_position();
 };
 
 
