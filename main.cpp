@@ -18,6 +18,14 @@
 const int screenWidth = 1600;
 const int screenHeight = 900;
 
+int min_val = -300;
+int max_val = 300;
+
+std::random_device rd; // obtain a random number from hardware
+std::mt19937 gen(rd()); // seed the generator
+std::uniform_int_distribution<> distr(min_val, max_val); // define the range
+
+
 // Function Prototypes
 void draw_center_lines();
 void draw_cursor_lines();
@@ -42,7 +50,7 @@ int main() {
 
     SetTargetFPS(144);
 
-    std::chrono::milliseconds interval(1000);
+    std::chrono::milliseconds interval(1500);
     std::thread timerThread(repeatingTimer, std::bind(periodicTask, std::ref(pipes)), interval);
     timerThread.detach();
 
@@ -52,7 +60,8 @@ int main() {
 
         ClearBackground(BLACK);
 
-            draw_center_lines();
+            // draw_center_lines();
+            // draw_cursor_lines();
 
             flappy.spawn_player();
 
@@ -85,7 +94,8 @@ int main() {
 
 // Function to be executed by the timer
 void periodicTask(std::vector<std::unique_ptr<Pipe>> &pipes) {
-    pipes.push_back(std::make_unique<Pipe>());
+    float random_num = static_cast<float>(distr(gen));
+    pipes.push_back(std::make_unique<Pipe>(random_num));
     std::cout << "Periodic task executed!" << std::endl;
 }
 
@@ -95,6 +105,8 @@ void repeatingTimer(std::function<void()> task, std::chrono::milliseconds interv
         std::this_thread::sleep_for(interval);
         task();
     }
+
+    
 }
 
 // to help with positioning / centering of objects

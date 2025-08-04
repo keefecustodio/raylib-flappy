@@ -27,3 +27,7 @@ void Pipe::move_pipe() {
 float Pipe::get_pipe_position() {
     return top_pipe_sprite.x;
 }
+
+Pipe::Pipe(float random_number) : pipe_gap_position(random_number) {
+
+}

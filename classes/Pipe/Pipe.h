@@ -26,6 +26,7 @@ class Pipe {
         void draw_pipe();
         void move_pipe();
         float get_pipe_position();
+        Pipe(float random_number);
 };
 
 
