@@ -1,7 +1,5 @@
 #include <iostream>
 #include <raylib.h>
-#include "classes/Player/Player.h"
-#include "classes/Pipe/Pipe.h"
 #include <vector>
 #include <ctime>
 #include <thread>
@@ -12,6 +10,9 @@
 #include <cstdio>
 #include <memory>
 #include <random>
+
+#include "classes/Player/Player.h"
+#include "classes/Pipe/Pipe.h"
 
 
 

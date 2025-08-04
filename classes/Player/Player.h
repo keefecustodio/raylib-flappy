@@ -30,7 +30,6 @@ class Player {
         void set_init_player_position(float x, float y);
         void draw_player();
         void apply_gravity(); 
-
         void controls();
         void spawn_player();
 };
