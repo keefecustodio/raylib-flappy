@@ -61,23 +61,22 @@ int main() {
 
         ClearBackground(BLACK);
 
-            // draw_center_lines();
-            // draw_cursor_lines();
-
             flappy.spawn_player();
 
             for(auto& single_pipe: pipes) {
                 single_pipe->draw_pipe();
                 single_pipe->move_pipe();
-                std::cout << pipes.size() << std::endl;
             }
 
+            if(!pipes.empty() && flappy.is_colliding_with_pipes(flappy.get_player_sprite(), pipes.front()->get_top_pipe_sprite() , pipes.front()->get_bottom_pipe_sprite())) {
+                // std::this_thread::sleep_for(std::chrono::seconds(100)); 
+                std::cout << "COLLIDED" << std::endl;
+            }
+            
             // despawn pipe when out of frame
             if(!pipes.empty() && pipes.front()->get_pipe_position() < -100.0f) {
                 pipes.erase(pipes.begin());
             }
-
-            // pipes.erase(pipes.begin)
 
         EndDrawing();
     }
@@ -135,3 +134,9 @@ void draw_cursor_lines() {
     DrawLineEx({0, static_cast<float>(GetMouseY())}, {screenWidth, static_cast<float>(GetMouseY())}, 1.0f, WHITE);
     DrawLineEx({static_cast<float>(GetMouseX()), 0}, {static_cast<float>(GetMouseX()), screenHeight}, 1.0f, WHITE);
 }
+
+// todo
+// - edit pipe rectangles to be a little more forgiving for player collision
+// - add ability to pause
+// - add a score
+// - kill the player on collision

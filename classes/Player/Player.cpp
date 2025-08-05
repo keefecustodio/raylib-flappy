@@ -36,3 +36,11 @@ void Player::spawn_player() {
     Player::apply_gravity();
     Player::controls();
 }
+
+bool Player::is_colliding_with_pipes(Rectangle self, Rectangle top_pipe, Rectangle bottom_pipe) {
+    return (CheckCollisionRecs(self, top_pipe) || CheckCollisionRecs(self, bottom_pipe));
+}
+
+Rectangle Player::get_player_sprite() {
+    return player_sprite;
+}

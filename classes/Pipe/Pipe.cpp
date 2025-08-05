@@ -31,3 +31,11 @@ float Pipe::get_pipe_position() {
 Pipe::Pipe(float random_number) : pipe_gap_position(random_number) {
 
 }
+
+Rectangle Pipe::get_top_pipe_sprite() {
+    return top_pipe_sprite;
+}
+
+Rectangle Pipe::get_bottom_pipe_sprite() {
+    return bottom_pipe_sprite;
+}

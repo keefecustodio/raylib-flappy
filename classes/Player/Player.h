@@ -32,6 +32,8 @@ class Player {
         void apply_gravity(); 
         void controls();
         void spawn_player();
+        Rectangle get_player_sprite();
+        bool is_colliding_with_pipes(Rectangle self, Rectangle top_pipe, Rectangle bottom_pipe);
 };
 
 
