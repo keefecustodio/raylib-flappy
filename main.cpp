@@ -59,7 +59,40 @@ int main() {
                 single_pipe->move_pipe();
             }
 
-            if(!pipes.empty() && flappy.is_colliding_with_pipes(flappy.get_player_sprite(), pipes.front()->get_top_pipe_sprite() , pipes.front()->get_bottom_pipe_sprite())) {
+
+            Rectangle top_pipe_hitbox;
+            
+            Rectangle bottom_pipe_hitbox;
+
+            if(!pipes.empty()) {
+                top_pipe_hitbox = pipes.front()->get_top_pipe_sprite();
+                top_pipe_hitbox.height -= 15.0f;
+                top_pipe_hitbox.width -= 20.0f;
+                top_pipe_hitbox.x += 12.0f;
+
+                
+
+                bottom_pipe_hitbox = pipes.front()->get_bottom_pipe_sprite();
+                bottom_pipe_hitbox.height -= 15.0f;
+                bottom_pipe_hitbox.width -= 20.0f;
+                bottom_pipe_hitbox.x += 12.0f;
+                // bottom_pipe_hitbox.y += 200.0f;
+                bottom_pipe_hitbox.y += 20.0f;
+
+                DrawRectangleLinesEx(
+                    top_pipe_hitbox,
+                    1.0f,
+                    RED
+                );
+
+                DrawRectangleLinesEx(
+                    bottom_pipe_hitbox,
+                    1.0f,
+                    RED
+                );
+            }
+            
+            if(!pipes.empty() && flappy.is_colliding_with_pipes(flappy.get_player_sprite(), top_pipe_hitbox, bottom_pipe_hitbox)) {
                 // std::this_thread::sleep_for(std::chrono::seconds(100)); 
                 std::cout << "COLLIDED" << std::endl;
             }
