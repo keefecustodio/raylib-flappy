@@ -10,11 +10,8 @@
 #include <cstdio>
 #include <memory>
 #include <random>
-
 #include "classes/Player/Player.h"
 #include "classes/Pipe/Pipe.h"
-
-
 
 const int screenWidth = 1600;
 const int screenHeight = 900;
@@ -26,19 +23,13 @@ std::random_device rd; // obtain a random number from hardware
 std::mt19937 gen(rd()); // seed the generator
 std::uniform_int_distribution<> distr(min_val, max_val); // define the range
 
-
 // Function Prototypes
 void draw_center_lines();
 void draw_cursor_lines();
 void periodicTask(std::vector<std::unique_ptr<Pipe>> &pipes);
 void repeatingTimer(std::function<void()> task, std::chrono::milliseconds interval);
 
-
-
 int main() {
-
-    
-
     InitWindow(screenWidth, screenHeight, "Flappy Bird");
 
     std::vector<std::unique_ptr<Pipe>> pipes;
@@ -105,8 +96,6 @@ void repeatingTimer(std::function<void()> task, std::chrono::milliseconds interv
         std::this_thread::sleep_for(interval);
         task();
     }
-
-    
 }
 
 // to help with positioning / centering of objects
