@@ -64,21 +64,27 @@ int main() {
             
             Rectangle bottom_pipe_hitbox;
 
+            Rectangle score_hitbox;
+
             if(!pipes.empty()) {
+                score_hitbox = pipes.front()->get_score_hitbox();
+                score_hitbox.x += 9.5f;
+
                 top_pipe_hitbox = pipes.front()->get_top_pipe_sprite();
-                top_pipe_hitbox.height -= 15.0f;
-                top_pipe_hitbox.width -= 20.0f;
-                top_pipe_hitbox.x += 12.0f;
+                top_pipe_hitbox.height -= 5.0f;
+                top_pipe_hitbox.width -= 15.0f;
+                top_pipe_hitbox.x += 9.5f;
 
                 
 
                 bottom_pipe_hitbox = pipes.front()->get_bottom_pipe_sprite();
-                bottom_pipe_hitbox.height -= 15.0f;
-                bottom_pipe_hitbox.width -= 20.0f;
-                bottom_pipe_hitbox.x += 12.0f;
+                bottom_pipe_hitbox.height -= 5.0f;
+                bottom_pipe_hitbox.width -= 15.0f;
+                bottom_pipe_hitbox.x += 9.5f;
                 // bottom_pipe_hitbox.y += 200.0f;
-                bottom_pipe_hitbox.y += 20.0f;
+                bottom_pipe_hitbox.y += 5.0f;
 
+                // draw collision boxes for the pipes.
                 DrawRectangleLinesEx(
                     top_pipe_hitbox,
                     1.0f,
@@ -90,11 +96,22 @@ int main() {
                     1.0f,
                     RED
                 );
+
+                // draw collision boxe for the score hitbox
+                // currently does not work :(
+                DrawRectangleLinesEx(
+                    score_hitbox,
+                    1.0f,
+                    GREEN
+                );
             }
             
             if(!pipes.empty() && flappy.is_colliding_with_pipes(flappy.get_player_sprite(), top_pipe_hitbox, bottom_pipe_hitbox)) {
                 // std::this_thread::sleep_for(std::chrono::seconds(100)); 
                 std::cout << "COLLIDED" << std::endl;
+                // EndDrawing();
+                // CloseWindow();
+                // return 0;
             }
             
             // despawn pipe when out of frame
@@ -158,7 +175,7 @@ void draw_cursor_lines() {
 }
 
 // todo
-// - edit pipe rectangles to be a little more forgiving for player collision
+// - edit pipe rectangles to be a little more forgiving for player collision DONE
 // - add ability to pause
 // - add a score
 // - kill the player on collision

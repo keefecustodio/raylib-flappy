@@ -22,12 +22,25 @@ class Pipe {
             (static_cast<float>(GetScreenHeight()) / 2.0f) - pipe_gap - pipe_gap_position, // height
         };
 
+        Rectangle score_hitbox {
+            // GetScreenWidth() + 75.0f,
+            // (static_cast<float>(GetScreenHeight()) / 2.0f) + pipe_gap + pipe_gap_position,
+            // 20.0f,
+            // pipe_gap
+            75.0f,
+            20.0f,
+            75.0f,
+            75.0f
+
+        };
+
     public:
         void draw_pipe();
         void move_pipe();
         float get_pipe_position();
         Rectangle get_top_pipe_sprite();
         Rectangle get_bottom_pipe_sprite();
+        Rectangle get_score_hitbox();
         Pipe(float random_number);
 };
 
