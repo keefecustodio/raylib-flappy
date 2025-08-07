@@ -23,15 +23,10 @@ class Pipe {
         };
 
         Rectangle score_hitbox {
-            // GetScreenWidth() + 75.0f,
-            // (static_cast<float>(GetScreenHeight()) / 2.0f) + pipe_gap + pipe_gap_position,
-            // 20.0f,
-            // pipe_gap
+            GetScreenWidth() + 75.0f + 75.0f, // x position of top left corner
+            (static_cast<float>(GetScreenHeight()) / 2.0f) - pipe_gap + pipe_gap_position,
             75.0f,
-            20.0f,
-            75.0f,
-            75.0f
-
+            pipe_gap * 2
         };
 
     public:

@@ -14,12 +14,19 @@ void Pipe::draw_pipe() {
         WHITE
     );
 
+    DrawRectangleLinesEx(
+        score_hitbox,
+        1.0f,
+        GREEN
+    );
+
     // std::cout << "pipe drawn" << std::endl;
 }
 
 void Pipe::move_pipe() {
     top_pipe_sprite.x -= pipe_speed * GetFrameTime();
     bottom_pipe_sprite.x -= pipe_speed * GetFrameTime();
+    score_hitbox.x -= pipe_speed * GetFrameTime();
 
     // std::cout << top_pipe_sprite.x << std::endl;
 }

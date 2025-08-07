@@ -67,8 +67,8 @@ int main() {
             Rectangle score_hitbox;
 
             if(!pipes.empty()) {
-                score_hitbox = pipes.front()->get_score_hitbox();
-                score_hitbox.x += 9.5f;
+                // score_hitbox = pipes.front()->get_score_hitbox();
+                // score_hitbox.x += 9.5f;
 
                 top_pipe_hitbox = pipes.front()->get_top_pipe_sprite();
                 top_pipe_hitbox.height -= 5.0f;
@@ -99,11 +99,11 @@ int main() {
 
                 // draw collision boxe for the score hitbox
                 // currently does not work :(
-                DrawRectangleLinesEx(
-                    score_hitbox,
-                    1.0f,
-                    GREEN
-                );
+                // DrawRectangleLinesEx(
+                //     score_hitbox,
+                //     1.0f,
+                //     GREEN
+                // );
             }
             
             if(!pipes.empty() && flappy.is_colliding_with_pipes(flappy.get_player_sprite(), top_pipe_hitbox, bottom_pipe_hitbox)) {

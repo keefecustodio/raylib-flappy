@@ -25,7 +25,7 @@ void Player::apply_gravity() {
 }
 
 void Player::controls() {
-    if(IsKeyPressed(KEY_SPACE)) {
+    if(IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         player_velocity.y = -player_jump_force;
         
     }
