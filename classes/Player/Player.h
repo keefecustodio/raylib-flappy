@@ -24,6 +24,7 @@ class Player {
         float player_jump_force { 675.0f };
         float player_gravity { 2700.0f };
         float player_max_velocity { 2700.0f };
+        int player_score {0};
 
     public:
         Vector2 get_player_position();
@@ -34,6 +35,8 @@ class Player {
         void spawn_player();
         Rectangle get_player_sprite();
         bool is_colliding_with_pipes(Rectangle self, Rectangle top_pipe, Rectangle bottom_pipe);
+        void increment_score();
+        bool is_colliding_with_score_box(Rectangle self, Rectangle score_box);
 };
 
 

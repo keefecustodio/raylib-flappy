@@ -59,12 +59,14 @@ int main() {
                 single_pipe->move_pipe();
             }
 
-
             Rectangle top_pipe_hitbox;
-            
             Rectangle bottom_pipe_hitbox;
-
             Rectangle score_hitbox;
+
+            // despawn pipe when out of frame
+            if(!pipes.empty() && pipes.front()->get_pipe_position() < -100.0f) {
+                pipes.erase(pipes.begin());
+            }
 
             if(!pipes.empty()) {
                 // score_hitbox = pipes.front()->get_score_hitbox();
@@ -99,13 +101,13 @@ int main() {
 
                 // draw collision boxe for the score hitbox
                 // currently does not work :(
-                // DrawRectangleLinesEx(
-                //     score_hitbox,
-                //     1.0f,
-                //     GREEN
-                // );
+                DrawRectangleLinesEx(
+                    score_hitbox,
+                    1.0f,
+                    GREEN
+                );
             }
-            
+
             if(!pipes.empty() && flappy.is_colliding_with_pipes(flappy.get_player_sprite(), top_pipe_hitbox, bottom_pipe_hitbox)) {
                 // std::this_thread::sleep_for(std::chrono::seconds(100)); 
                 std::cout << "COLLIDED" << std::endl;
@@ -113,11 +115,21 @@ int main() {
                 // CloseWindow();
                 // return 0;
             }
+
+
+            // for scoring
+
+            // if(!pipes.empty() && flappy.is_colliding_with_score_box(flappy.get_player_sprite(), pipes.front()->get_score_hitbox())) {
+            //     // std::this_thread::sleep_for(std::chrono::seconds(100)); 
+            //     std::cout << "COLLIDED WITH SCOREBOX" << std::endl;
+            //     // EndDrawing();
+            //     // CloseWindow();
+            //     // return 0;
+            // }
+
+
             
-            // despawn pipe when out of frame
-            if(!pipes.empty() && pipes.front()->get_pipe_position() < -100.0f) {
-                pipes.erase(pipes.begin());
-            }
+            
 
         EndDrawing();
     }

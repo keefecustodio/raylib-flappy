@@ -41,6 +41,14 @@ bool Player::is_colliding_with_pipes(Rectangle self, Rectangle top_pipe, Rectang
     return (CheckCollisionRecs(self, top_pipe) || CheckCollisionRecs(self, bottom_pipe));
 }
 
+bool Player::is_colliding_with_score_box(Rectangle self, Rectangle score_box) {
+    return CheckCollisionRecs(self, score_box);
+}
+
 Rectangle Player::get_player_sprite() {
     return player_sprite;
+}
+
+void Player::increment_score() {
+    player_score++;
 }
