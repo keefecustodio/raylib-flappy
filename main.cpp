@@ -63,73 +63,62 @@ int main() {
             Rectangle bottom_pipe_hitbox;
             Rectangle score_hitbox;
 
-            // despawn pipe when out of frame
-            if(!pipes.empty() && pipes.front()->get_pipe_position() < -100.0f) {
-                pipes.erase(pipes.begin());
+
+            if (!pipes.empty()) {
+
+                // despawn the first pipe when it goes out of frame
+                if (pipes.front()->get_pipe_position() < -100.0f) {
+                    pipes.erase(pipes.begin());
+                }
+
+                // renders collision boxes
+                {
+                    top_pipe_hitbox = pipes.front()->get_top_pipe_sprite();
+                    top_pipe_hitbox.height -= 5.0f;
+                    top_pipe_hitbox.width -= 15.0f;
+                    top_pipe_hitbox.x += 9.5f;
+
+
+                    bottom_pipe_hitbox = pipes.front()->get_bottom_pipe_sprite();
+                    bottom_pipe_hitbox.height -= 5.0f;
+                    bottom_pipe_hitbox.width -= 15.0f;
+                    bottom_pipe_hitbox.x += 9.5f;
+                    bottom_pipe_hitbox.y += 5.0f;
+
+                    // draw collision boxes for the pipes.
+                    DrawRectangleLinesEx(
+                        top_pipe_hitbox,
+                        1.0f,
+                        RED
+                    );
+
+                    DrawRectangleLinesEx(
+                        bottom_pipe_hitbox,
+                        1.0f,
+                        RED
+                    );
+
+                    // draw collision boxe for the score hitbox
+                    // currently does not work :(
+                    DrawRectangleLinesEx(
+                        score_hitbox,
+                        1.0f,
+                        GREEN
+                    );
+                }
+
+
+                // for pipe collisions - collision detected before the sprites actually collide???
+                if(flappy.is_colliding_with_pipes(flappy.get_player_sprite(), top_pipe_hitbox, bottom_pipe_hitbox)) {
+                    std::cout << "COLLIDED" << std::endl;
+                }
+
+                // for scoring
+                // if(flappy.is_colliding_with_score_box(flappy.get_player_sprite(), pipes.front()->get_score_hitbox())) {
+                //     std::cout << "COLLIDED WITH SCOREBOX" << std::endl;
+                // } 
             }
 
-            if(!pipes.empty()) {
-                // score_hitbox = pipes.front()->get_score_hitbox();
-                // score_hitbox.x += 9.5f;
-
-                top_pipe_hitbox = pipes.front()->get_top_pipe_sprite();
-                top_pipe_hitbox.height -= 5.0f;
-                top_pipe_hitbox.width -= 15.0f;
-                top_pipe_hitbox.x += 9.5f;
-
-                
-
-                bottom_pipe_hitbox = pipes.front()->get_bottom_pipe_sprite();
-                bottom_pipe_hitbox.height -= 5.0f;
-                bottom_pipe_hitbox.width -= 15.0f;
-                bottom_pipe_hitbox.x += 9.5f;
-                // bottom_pipe_hitbox.y += 200.0f;
-                bottom_pipe_hitbox.y += 5.0f;
-
-                // draw collision boxes for the pipes.
-                DrawRectangleLinesEx(
-                    top_pipe_hitbox,
-                    1.0f,
-                    RED
-                );
-
-                DrawRectangleLinesEx(
-                    bottom_pipe_hitbox,
-                    1.0f,
-                    RED
-                );
-
-                // draw collision boxe for the score hitbox
-                // currently does not work :(
-                DrawRectangleLinesEx(
-                    score_hitbox,
-                    1.0f,
-                    GREEN
-                );
-            }
-
-            if(!pipes.empty() && flappy.is_colliding_with_pipes(flappy.get_player_sprite(), top_pipe_hitbox, bottom_pipe_hitbox)) {
-                // std::this_thread::sleep_for(std::chrono::seconds(100)); 
-                std::cout << "COLLIDED" << std::endl;
-                // EndDrawing();
-                // CloseWindow();
-                // return 0;
-            }
-
-
-            // for scoring
-
-            // if(!pipes.empty() && flappy.is_colliding_with_score_box(flappy.get_player_sprite(), pipes.front()->get_score_hitbox())) {
-            //     // std::this_thread::sleep_for(std::chrono::seconds(100)); 
-            //     std::cout << "COLLIDED WITH SCOREBOX" << std::endl;
-            //     // EndDrawing();
-            //     // CloseWindow();
-            //     // return 0;
-            // }
-
-
-            
-            
 
         EndDrawing();
     }
@@ -187,7 +176,7 @@ void draw_cursor_lines() {
 }
 
 // todo
-// - edit pipe rectangles to be a little more forgiving for player collision DONE
+// - edit pipe rectangles to be a little more forgiving for player collision
 // - add ability to pause
 // - add a score
 // - kill the player on collision

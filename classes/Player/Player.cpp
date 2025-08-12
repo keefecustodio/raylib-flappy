@@ -1,6 +1,8 @@
 #include "Player.h"
 #include <iostream>
 
+int Player::player_score {0};
+
 Vector2 Player::get_player_position() {
     return player_position;
 }

@@ -24,7 +24,7 @@ class Player {
         float player_jump_force { 675.0f };
         float player_gravity { 2700.0f };
         float player_max_velocity { 2700.0f };
-        int player_score {0};
+        static int player_score;
 
     public:
         Vector2 get_player_position();
